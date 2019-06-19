@@ -19,7 +19,7 @@ try:
         print(banner.decode('ascii'))
         with (open(users_list, 'r')) as users:
             for username in users.readlines():
-                s.send(b'VRFY ' + username.encode('ascii'))
+                s.send(b'VRFY ' + username.encode('ascii') + b'\r\n')
                 response = s.recv(1024)
                 print(response.decode('ascii'))
 except Exception as e:
