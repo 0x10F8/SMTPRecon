@@ -19,7 +19,7 @@ def get_network_address(ip):
 
 
 def get_last_octate(ip):
-    return int(ip.split('.')[4])
+    return int(ip.split('.')[3])
 
 
 iprange = sys.argv[1]
