@@ -19,7 +19,7 @@ try:
         s.recv(1024) # Recieve the banner
         with (open(users_list, 'r')) as users:
             for username in users.readlines():
-                s.send('VRFY %s' % username)
+                s.send(b'VRFY ' + username.encode('ascii'))
                 response = s.recv(1024)
                 print(response.decode('ascii'))
 except Exception as e:
