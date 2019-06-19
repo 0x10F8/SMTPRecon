@@ -21,7 +21,7 @@ try:
             for username in users.readlines():
                 s.send(b'VRFY ' + username.encode('ascii') + b'\r\n')
                 response = s.recv(1024).decode('ascii')
-                if '501' not in response:
+                if '252' in response:
                     print('[+] User %s found' % username)
 except Exception as e:
     print('Error connecting to %s : %s' % (ip, e))
