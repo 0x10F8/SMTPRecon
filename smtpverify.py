@@ -16,7 +16,8 @@ try:
     with(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
         s.settimeout(3)
         s.connect((ip, 25))
-        s.recv(1024) # Recieve the banner
+        banner = s.recv(1024) # Recieve the banner
+        print(banner.decode('ascii'))
         with (open(users_list, 'r')) as users:
             for username in users.readlines():
                 s.send(b'VRFY ' + username.encode('ascii'))
