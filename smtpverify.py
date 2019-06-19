@@ -14,7 +14,6 @@ users_list = sys.argv[2]
 
 try:
     with(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
-        s.settimeout(3)
         s.connect((ip, 25))
         banner = s.recv(1024) # Recieve the banner
         print(banner.decode('ascii'))
