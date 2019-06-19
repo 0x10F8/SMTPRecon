@@ -26,12 +26,10 @@ def get_last_octate(ip):
 def try_server(ip_address):
     try:
         with(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
-            connect = s.connect((ip_address, 25))
+            s.settimeout(1)
+            s.connect((ip_address, 25))
             banner = s.recv(1024)
-            print(banner)
-            s.send('VRFY bob\r\n')
-            result = s.recv(1024)
-            print(result)
+            print("[+] %s %s" % (ip_address, banner))
     except:
         pass
 
