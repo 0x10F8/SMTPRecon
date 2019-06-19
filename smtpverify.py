@@ -22,5 +22,5 @@ try:
                 s.send('VRFY %s' % username)
                 response = s.recv(1024)
                 print(response.decode('ascii'))
-except:
-    print('Error connecting to %s' % ip)
+except Exception as e:
+    print('Error connecting to %s : %s' % (ip, e))
