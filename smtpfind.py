@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import sys
 import socket
+from concurrent.futures import ThreadPoolExecutor
 
 if len(sys.argv) != 2:
     print(
@@ -22,15 +23,7 @@ def get_last_octate(ip):
     return int(ip.split('.')[3])
 
 
-iprange = sys.argv[1]
-(firstip, lastip) = get_ip_range(iprange)
-network_address = get_network_address(firstip)
-first_octate = get_last_octate(firstip)
-last_octate = get_last_octate(lastip)
-
-for octate in range(first_octate, last_octate):
-    ip_address = "%s.%d" % (network_address, octate)
-
+def try_server(ip_address):
     try:
         with(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
             connect = s.connect((ip_address, 25))
@@ -41,3 +34,20 @@ for octate in range(first_octate, last_octate):
             print(result)
     except:
         pass
+
+
+iprange = sys.argv[1]
+(firstip, lastip) = get_ip_range(iprange)
+network_address = get_network_address(firstip)
+first_octate = get_last_octate(firstip)
+last_octate = get_last_octate(lastip)
+
+
+thread_pool = ThreadPoolExecutor(max_workers=50)
+thread_results = []
+
+for octate in range(first_octate, last_octate):
+    ip_address = "%s.%d" % (network_address, octate)
+    thread_pool.submit(try_server, ip_address)
+
+thread_pool.shutdown()
