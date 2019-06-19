@@ -29,7 +29,7 @@ def try_server(ip_address):
             s.settimeout(1)
             s.connect((ip_address, 25))
             banner = s.recv(1024)
-            print("[+] %s %s" % (ip_address, banner))
+            print("[+] %s %s" % (ip_address, banner.decode('ascii')))
     except:
         pass
 
