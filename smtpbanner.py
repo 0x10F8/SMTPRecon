@@ -26,7 +26,7 @@ def get_last_octate(ip):
 def try_server(ip_address):
     try:
         with(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
-            s.settimeout(3)
+            s.settimeout(10)
             s.connect((ip_address, 25))
             banner = s.recv(1024)
             print("[+] %s %s" % (ip_address, banner.decode('ascii')))
